@@ -2,7 +2,6 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public enum EnumAttributes {FOR, INT, VIT, AGI};
     
     private int    m_nMinionsAlive;
     [SerializeField]
@@ -17,6 +16,15 @@ public class PlayerController : MonoBehaviour
         get{ return m_strNickname; }
     }
 
+    public string GeneratedName{
+        get{ return m_strGeneratedName; }
+    }
+
+    public int MinionsAlive{
+        get { return m_nMinionsAlive; }
+        set { m_nMinionsAlive = value; }
+    }
+
     void Awake(){
         m_nFOR          = 0;
         m_nINT          = 0;
@@ -26,33 +34,35 @@ public class PlayerController : MonoBehaviour
     }
 
     public void AddAttribute(Attributes soAttribute){
+        m_strGeneratedName += " " + soAttribute.AttributeName;
         m_nFOR += soAttribute.FOR;
         m_nINT += soAttribute.INT;
         m_nVIT += soAttribute.VIT;
         m_nAGI += soAttribute.AGI;
     }
 
-    public int MinionsAlive {
-        get { return m_nMinionsAlive; }
-    }
-
     public void KillMinion(){
         m_nMinionsAlive--;
+        Debug.Log(Nickname + " lost one");
     }
 
-    public int GetAttribute(EnumAttributes attribute){
+    public int GetAttribute(GameManager.EnumAttributes attribute){
         switch (attribute){
-            case EnumAttributes.FOR:
+            case GameManager.EnumAttributes.FOR:
                 return m_nFOR;
-            case EnumAttributes.INT:
+            case GameManager.EnumAttributes.INT:
                 return m_nINT;
-            case EnumAttributes.VIT:
+            case GameManager.EnumAttributes.VIT:
                 return m_nVIT;
-            case EnumAttributes.AGI:
+            case GameManager.EnumAttributes.AGI:
                 return m_nAGI;
             default:
                 return -1;
         }
+    }
+
+    void Start(){
+        m_strGeneratedName = "";
     }
 
 }

@@ -36,6 +36,18 @@ public class MinionManager : MonoBehaviour
         set { m_Player = value; }
     }
 
+    public bool DoesWin(MinionManager EnemyMinion){
+        if(m_nEffectiveStatus == EnemyMinion.EffectiveStatus){
+            var coin_toss = Random.Range(1, 3);
+            if (coin_toss == 1)
+                m_nEffectiveStatus++;
+            else
+                EnemyMinion.EffectiveStatus++;
+        }
+
+        return (m_nEffectiveStatus < EnemyMinion.EffectiveStatus);
+    }
+
     void MoveTo(Transform target){
         transform.position = Vector2.MoveTowards(transform.position, m_GOEnemyMinion.transform.position, m_sSpeed * Time.deltaTime);
     }
@@ -47,12 +59,15 @@ public class MinionManager : MonoBehaviour
 
     void Duel(MinionManager EnemyMinion){
         m_bHasDueled = true;
-        if (m_nEffectiveStatus < EnemyMinion.EffectiveStatus){
-            m_bIsDead = true;
-            Player.GetComponent<PlayerController>().KillMinion();
-            var player1 = Player.GetComponent<PlayerController>();
-            var player2 = m_GOEnemyMinion.GetComponent<MinionManager>().Player.GetComponent<PlayerController>();
-        }
+        if(DoesWin(EnemyMinion))
+            Die();
+        
+        
+    }
+
+    void Die(){
+        m_bIsDead = true;
+        Player.GetComponent<PlayerController>().KillMinion();
     }
 
     void Update(){
