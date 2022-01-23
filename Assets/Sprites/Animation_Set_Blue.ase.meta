@@ -1,0 +1,42 @@
+fileFormatVersion: 2
+guid: 90f66f752c06e3d479fd463d2c36b4d8
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: d118e905828400a42a9456f8ad22a9fe, type: 3}
+  textureSettings:
+    textureType: 8
+    pixelsPerUnit: 16
+    transparentMask: 0
+    transparentColor: {r: 1, g: 0, b: 1, a: 1}
+    meshType: 1
+    extrudeEdges: 1
+    spritePivot: {x: 0.5, y: 0.5}
+    generatePhysics: 0
+    wrapMode: 1
+    filterMode: 0
+    tileSize: {x: 32, y: 32}
+    tilePadding: {x: 0, y: 0}
+    tileOffset: {x: 0, y: 0}
+  animationSettings:
+  - animationName: Idle
+    loopTime: 1
+    about: "Animation Type:\tForward\r\nAnimation:\tFrom: 0; To: 28"
+  - animationName: Hurt
+    loopTime: 0
+    about: "Animation Type:\tForward\r\nAnimation:\tFrom: 29; To: 37"
+  - animationName: Walk
+    loopTime: 1
+    about: "Animation Type:\tForward\r\nAnimation:\tFrom: 38; To: 71"
+  - animationName: Attack
+    loopTime: 0
+    about: "Animation Type:\tForward\r\nAnimation:\tFrom: 72; To: 83"
+  - animationName: Dead
+    loopTime: 0
+    about: "Animation Type:\tForward\r\nAnimation:\tFrom: 84; To: 168"
+  atlas: {instanceID: 0}
+  importType: 0

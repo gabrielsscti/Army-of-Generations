@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 6238091993573550869}
   - component: {fileID: 6238091993573550866}
   - component: {fileID: 1890367484836157815}
+  - component: {fileID: -4458812902309133770}
   m_Layer: 0
-  m_Name: Minion
+  m_Name: MinionBlue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,5 +95,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f45752a71569c04d8472fa85b60508f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sSpeed: 2.5
+  m_sSpeed: 3
   m_sAttackingDistance: 0.5
+  atkSounds:
+  - {fileID: 8300000, guid: a92fed467b47cdf42833ebefeb922dfd, type: 3}
+  - {fileID: 8300000, guid: 3027f53cfcb7f3b47983b7f253375913, type: 3}
+  - {fileID: 8300000, guid: 8b827ffc26f6fc14a9800fd3eb7f5b09, type: 3}
+  - {fileID: 8300000, guid: 49b2589f673bdcb488a4c17f0c0391af, type: 3}
+  - {fileID: 8300000, guid: b38372a87639a204b98a0b32686aa814, type: 3}
+  - {fileID: 8300000, guid: a6b71d6f3d257a54fb8d970e3405400d, type: 3}
+--- !u!95 &-4458812902309133770
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6238091993573550867}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5ddd6256d760a7c4294b549d3197e84a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

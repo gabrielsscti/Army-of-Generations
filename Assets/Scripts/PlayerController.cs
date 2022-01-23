@@ -2,7 +2,6 @@
 
 public class PlayerController : MonoBehaviour
 {
-    
     private int    m_nMinionsAlive;
     [SerializeField]
     private string m_strNickname;
@@ -14,6 +13,7 @@ public class PlayerController : MonoBehaviour
 
     public string Nickname{
         get{ return m_strNickname; }
+        set{ m_strNickname = value; }
     }
 
     public string GeneratedName{
@@ -29,12 +29,14 @@ public class PlayerController : MonoBehaviour
         m_nFOR          = 0;
         m_nINT          = 0;
         m_nVIT          = 0;
-        m_nAGI          = 0;  
-        m_nMinionsAlive = 10;
+        m_nAGI          = 0;
     }
 
     public void AddAttribute(Attributes soAttribute){
         m_strGeneratedName += " " + soAttribute.AttributeName;
+
+        m_strGeneratedName = m_strGeneratedName.Trim();
+
         m_nFOR += soAttribute.FOR;
         m_nINT += soAttribute.INT;
         m_nVIT += soAttribute.VIT;
@@ -59,10 +61,6 @@ public class PlayerController : MonoBehaviour
             default:
                 return -1;
         }
-    }
-
-    void Start(){
-        m_strGeneratedName = "";
     }
 
 }

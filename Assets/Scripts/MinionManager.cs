@@ -5,6 +5,7 @@ using UnityEngine;
 public class MinionManager : MonoBehaviour
 {
     private GameObject m_Player;
+    private Animator animator;
     private GameObject m_GOEnemyMinion;
     [SerializeField]
     private float      m_sSpeed;
@@ -13,8 +14,11 @@ public class MinionManager : MonoBehaviour
     private int        m_nEffectiveStatus;
     private bool       m_bHasDueled;
     private bool       m_bIsDead;
+    [SerializeField]
+    private AudioClip[] atkSounds;
 
     public GameObject EnemyMinion{
+        get { return m_GOEnemyMinion; }
         set { m_GOEnemyMinion = value; }
     }
 
@@ -25,6 +29,7 @@ public class MinionManager : MonoBehaviour
 
     public bool HasDueled{
         get { return m_bHasDueled; }
+        set { m_bHasDueled = value; }
     }
 
     public bool IsDead{
@@ -49,6 +54,7 @@ public class MinionManager : MonoBehaviour
     }
 
     void MoveTo(Transform target){
+        animator.SetTrigger("Walk");
         transform.position = Vector2.MoveTowards(transform.position, m_GOEnemyMinion.transform.position, m_sSpeed * Time.deltaTime);
     }
 
@@ -57,26 +63,58 @@ public class MinionManager : MonoBehaviour
         return (distance < m_sAttackingDistance);
     }
 
+    void DoHurtAnimation(){
+        animator.SetTrigger("Hurt");
+    }
+
+    void DoDeathAnimation(){
+        animator.SetTrigger("Die");
+    }
+
     void Duel(MinionManager EnemyMinion){
+        if(!m_bHasDueled){
+            animator.SetTrigger("Attack");
+            PlayAttackSound();
+
+            Invoke("DoHurtAnimation", 0.24f);
+        }
         m_bHasDueled = true;
-        if(DoesWin(EnemyMinion))
+
+        if(!DoesWin(EnemyMinion))
             Die();
         
         
     }
 
+    public void SetIdle(){
+        animator.SetTrigger("Idle");
+    }
+
     void Die(){
+        if (!m_bIsDead)
+            Invoke("DoDeathAnimation", 0.24f+0.21f);
         m_bIsDead = true;
         Player.GetComponent<PlayerController>().KillMinion();
     }
 
+    void Start(){
+        animator = GetComponent<Animator>();
+        animator.SetTrigger("Idle");
+    }
+
     void Update(){
         if (!m_bIsDead){
-            if (IsInAttackingDistance(m_GOEnemyMinion.transform))
-                Duel(m_GOEnemyMinion.GetComponent<MinionManager>());
-            else
+            if (m_GOEnemyMinion != null){
+                if (IsInAttackingDistance(m_GOEnemyMinion.transform))
+                    Duel(m_GOEnemyMinion.GetComponent<MinionManager>());
+                else
                 MoveTo(m_GOEnemyMinion.transform);
+            }
         }
+    }
+
+    void PlayAttackSound(){
+        TocarSom.Tocar(this.gameObject, atkSounds[Random.Range(0, atkSounds.Length-1)]);
     }
 
 }
