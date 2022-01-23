@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 public class FileDataManager
@@ -15,7 +14,8 @@ public class FileDataManager
         }
 
         var res = new Dictionary<int, Attributes>();
-        using (var reader = new StreamReader("Assets/Data/" + time)){
+        Debug.Log(Application.streamingAssetsPath);
+        using (var reader = new StreamReader(Application.streamingAssetsPath + "/Data/" + time)){
             while(!reader.EndOfStream){
                 var values        = reader.ReadLine().Split(',');
                 var days          = values[0];

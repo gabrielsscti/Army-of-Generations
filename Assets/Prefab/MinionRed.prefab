@@ -95,7 +95,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f45752a71569c04d8472fa85b60508f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sSpeed: 3
+  m_sSpeed: 5
   m_sAttackingDistance: 0.5
   atkSounds:
   - {fileID: 8300000, guid: a92fed467b47cdf42833ebefeb922dfd, type: 3}

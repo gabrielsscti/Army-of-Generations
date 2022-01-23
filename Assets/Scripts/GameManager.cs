@@ -1,6 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : Singleton<GameManager>
 {
@@ -23,6 +23,12 @@ public class GameManager : Singleton<GameManager>
     private bool             m_bIsWaiting;
     private int              m_nCountRound;
     private bool             m_bGameEnd;
+
+    public Text OverlayNickname;
+    public Text OverlayTitle;
+    public Text OverlayMinions;
+    public GameObject UIScreen;
+    public GameObject OverlayScreen;
 
     public int CountRound{
         get{ return m_nCountRound; }
@@ -61,7 +67,7 @@ public class GameManager : Singleton<GameManager>
         m_dictDayAttributes.TryGetValue(PlayerPrefs.GetInt("dia1"), out dayAttribute);
         m_dictMonthAttributes.TryGetValue(PlayerPrefs.GetInt("mes1"), out monthAttribute);
         m_dictYearAttributes.TryGetValue(PlayerPrefs.GetInt("ano1"), out yearAttribute);
-        player.Nickname = PlayerPrefs.GetString("nick1");
+        player.Nickname = PlayerPrefs.GetString("nick1", "Player One");
         
         player.AddAttribute(dayAttribute);
         player.AddAttribute(monthAttribute);
@@ -77,7 +83,7 @@ public class GameManager : Singleton<GameManager>
         m_dictDayAttributes.TryGetValue(PlayerPrefs.GetInt("dia2"), out dayAttribute);
         m_dictMonthAttributes.TryGetValue(PlayerPrefs.GetInt("mes2"), out monthAttribute);
         m_dictYearAttributes.TryGetValue(PlayerPrefs.GetInt("ano2"), out yearAttribute);
-        player.Nickname = PlayerPrefs.GetString("nick2");
+        player.Nickname = PlayerPrefs.GetString("nick2", "Player Two");
         
         player.AddAttribute(dayAttribute);
         player.AddAttribute(monthAttribute);
@@ -161,11 +167,11 @@ public class GameManager : Singleton<GameManager>
 
         LoadAttributes();
         
-        // GetPlayer1Values(m_GOPlayer1.GetComponent<PlayerController>());
-        // GetPlayer2Values(m_GOPlayer2.GetComponent<PlayerController>());
+        GetPlayer1Values(m_GOPlayer1.GetComponent<PlayerController>());
+        GetPlayer2Values(m_GOPlayer2.GetComponent<PlayerController>());
 
-        MockPlayerValues(m_GOPlayer1.GetComponent<PlayerController>());
-        MockPlayerValues(m_GOPlayer2.GetComponent<PlayerController>());
+        // MockPlayerValues(m_GOPlayer1.GetComponent<PlayerController>());
+        // MockPlayerValues(m_GOPlayer2.GetComponent<PlayerController>());
 
         m_lstMinionsPlayer1 = GenerateMinionsBlue(m_GOPlayer1, 20, 5f);
         m_lstMinionsPlayer2 = GenerateMinionsRed(m_GOPlayer2, 20, -7f);
@@ -190,16 +196,14 @@ public class GameManager : Singleton<GameManager>
 
         if (player1.MinionsAlive==0){
             m_bGameEnd = true;
-            PlayerPrefs.SetString("WinnerNickname",     player2.Nickname);
-            PlayerPrefs.SetString("WinnerTitle",        player2.GeneratedName);
-            PlayerPrefs.SetInt   ("WinnerMinionsAlive", player2.MinionsAlive);
-            Debug.Log("Game Ended!" + PlayerPrefs.GetString("WinnerNickname") + " won!");
+            OverlayNickname.text = player2.Nickname + " é o vencedor!";
+            OverlayTitle.text =    " seu exército é " + player2.GeneratedName;
+            OverlayMinions.text =  " e sobreviveram " + player2.MinionsAlive.ToString() + " soldados!";
         }else if(player2.MinionsAlive==0){
             m_bGameEnd = true;
-            PlayerPrefs.SetString("WinnerNickname",     player1.Nickname);
-            PlayerPrefs.SetString("WinnerTitle",        player1.GeneratedName);
-            PlayerPrefs.SetInt   ("WinnerMinionsAlive", player1.MinionsAlive);
-            Debug.Log("Game Ended!" + PlayerPrefs.GetString("WinnerNickname") + " won!");
+            OverlayNickname.text = player1.Nickname + " é o vencedor!";
+            OverlayTitle.text =    " seu exército é " + player1.GeneratedName;
+            OverlayMinions.text =  " e sobreviveram " + player1.MinionsAlive.ToString() + " soldados";
         }else{
             m_nCountRound++;
             m_bIsWaiting = false;
@@ -234,11 +238,16 @@ public class GameManager : Singleton<GameManager>
     void Update()
     {
         if (!m_bGameEnd){
+            UIScreen.SetActive(true);
+            OverlayScreen.SetActive(false);
             if (!(m_bIsWaiting) && EveryoneDueled()){
                 m_bIsWaiting = true;
                 
                 Invoke("PrepareNextRound", 3f);
             }
+        }else{
+            OverlayScreen.SetActive(true);
+            UIScreen.SetActive(false);
         }
     }
 }

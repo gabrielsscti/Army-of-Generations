@@ -13,11 +13,11 @@ public class PlayerInfoUI : MonoBehaviour
     private Text m_nMinionsAlive;
 
     private void Start(){
-        m_TextNickname.text  = m_Player.Nickname;
     }
 
     private void Update()
     {
+        m_TextNickname.text  = m_Player.Nickname;
         m_TitleNickname.text = m_Player.GeneratedName;
         m_nMinionsAlive.text = "Minions Alive: " + m_Player.MinionsAlive.ToString();
     }
