@@ -21,7 +21,6 @@ public class FileDataManager
                 var days          = values[0];
                 var advantageName = values[1];
                 var attributes    = values[2];
-                Debug.Log(days + " | " + advantageName + " | " + attributes);
                 
                 var attributesArray = attributes.Split('|');
                 var attributeObj    = new Attributes(advantageName, int.Parse(attributesArray[0]), int.Parse(attributesArray[1]), int.Parse(attributesArray[2]), int.Parse(attributesArray[3]));

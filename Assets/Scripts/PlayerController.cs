@@ -5,6 +5,7 @@ public class PlayerController : MonoBehaviour
     public enum EnumAttributes {FOR, INT, VIT, AGI};
     
     private int    m_nMinionsAlive;
+    [SerializeField]
     private string m_strNickname;
     private string m_strGeneratedName;
     private int    m_nFOR;
@@ -12,11 +13,16 @@ public class PlayerController : MonoBehaviour
     private int    m_nVIT;
     private int    m_nAGI;
 
+    public string Nickname{
+        get{ return m_strNickname; }
+    }
+
     void Awake(){
-        m_nFOR = 0;
-        m_nINT = 0;
-        m_nVIT = 0;
-        m_nAGI = 0;  
+        m_nFOR          = 0;
+        m_nINT          = 0;
+        m_nVIT          = 0;
+        m_nAGI          = 0;  
+        m_nMinionsAlive = 10;
     }
 
     public void AddAttribute(Attributes soAttribute){
