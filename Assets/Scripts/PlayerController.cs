@@ -2,9 +2,8 @@
 
 public class PlayerController : MonoBehaviour
 {
-    public enum Attributes {FOR, INT, VIT, AGI};
+    public enum EnumAttributes {FOR, INT, VIT, AGI};
     
-    [SerializeField]
     private int    m_nMinionsAlive;
     private string m_strNickname;
     private string m_strGeneratedName;
@@ -20,7 +19,7 @@ public class PlayerController : MonoBehaviour
         m_nAGI = 0;  
     }
 
-    public void AddAttribute(SOAttributes soAttribute){
+    public void AddAttribute(Attributes soAttribute){
         m_nFOR += soAttribute.FOR;
         m_nINT += soAttribute.INT;
         m_nVIT += soAttribute.VIT;
@@ -35,15 +34,15 @@ public class PlayerController : MonoBehaviour
         m_nMinionsAlive--;
     }
 
-    public int GetAttribute(Attributes attribute){
+    public int GetAttribute(EnumAttributes attribute){
         switch (attribute){
-            case Attributes.FOR:
+            case EnumAttributes.FOR:
                 return m_nFOR;
-            case Attributes.INT:
+            case EnumAttributes.INT:
                 return m_nINT;
-            case Attributes.VIT:
+            case EnumAttributes.VIT:
                 return m_nVIT;
-            case Attributes.AGI:
+            case EnumAttributes.AGI:
                 return m_nAGI;
             default:
                 return -1;
